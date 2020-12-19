@@ -6,6 +6,8 @@ import librosa
 import pydub
 from pydub import playback
 
+from Track import Track
+
 
 def getTracks(path):  # returns list of all wav files in "path" directory
     tracks_collection = [f for f in os.listdir(path) if f.endswith('.wav')]
@@ -16,13 +18,13 @@ def getTracks(path):  # returns list of all wav files in "path" directory
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
 multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_1')  # append desired multitrack path
 tracks = getTracks(multiTrackPath)
-librosaAudioObject = {'files': [], 'samplingFreqs': []}  # contains audio files and relative sampling freqs
-pydubTracks = []
+outputMix = []
+tracksObjects = []
 firstTrackPath = pathlib.Path(str(multiTrackPath) + '/{}'.format(tracks[0]))
 signal, rate = librosa.load(firstTrackPath, sr=None, mono=False)
 
 mixedAudio = pydub.AudioSegment.from_file(firstTrackPath, format='wav')  # load first track
-pydubTracks.append(mixedAudio)  # append first track
+outputMix.append(mixedAudio)  # append first track
 # end init
 
 for index in enumerate(tracks):  # load tracks
@@ -30,18 +32,14 @@ for index in enumerate(tracks):  # load tracks
     audio, fs = librosa.load(singleTrackPath, sr=None, mono=False)  # load track
 
     # begin append and mix track
-    librosaAudioObject['files'].append(audio)
-    librosaAudioObject['samplingFreqs'].append(fs)
-    channel1 = audio[:, 0]
+    tracksObjects.append(Track(singleTrackPath)) # store track object
 
     if index[0] != 0:
-        segment = pydub.AudioSegment.from_file(singleTrackPath, format='wav')
-        mix = pydubTracks[-1].overlay(segment)
-        pydubTracks.append(mix)
+        segment = tracksObjects[-1].getPydubTrack()  # get track to overlay
+        mix = outputMix[-1].overlay(segment)  # overlay to output mix
+        outputMix.append(mix)  # append new mix
     # end append and mix track
 
-playback._play_with_simpleaudio(pydubTracks[-1])  # play track
-time.sleep(len(pydubTracks[-1]) / 1000)  # wait for the track to end
+playback._play_with_simpleaudio(outputMix[-1])  # play last appended track (complete one)
+time.sleep(len(outputMix[-1]) / 1000 + 1)  # wait for the track to end + 1 sec
 
-
-print(librosaAudioObject)  # print librosa object (not used for now)
