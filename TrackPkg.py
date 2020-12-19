@@ -1,3 +1,5 @@
+import os
+
 import librosa
 import pydub
 from pydub import playback
@@ -20,3 +22,8 @@ class Track:
 
     def play(self):  # play track
         playback._play_with_simpleaudio(self.pydubTrack)
+
+
+def getTracks(path):  # returns list of all wav files in "path" directory
+    tracks_collection = [f for f in os.listdir(path) if f.endswith('.wav')]
+    return tracks_collection

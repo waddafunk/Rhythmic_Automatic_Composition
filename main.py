@@ -1,4 +1,3 @@
-import os
 import pathlib
 import time
 
@@ -6,13 +5,7 @@ import librosa
 import pydub
 from pydub import playback
 
-from Track import Track
-
-
-def getTracks(path):  # returns list of all wav files in "path" directory
-    tracks_collection = [f for f in os.listdir(path) if f.endswith('.wav')]
-    return tracks_collection
-
+from TrackPkg import Track, getTracks
 
 # begin init
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
