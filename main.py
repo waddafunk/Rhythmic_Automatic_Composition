@@ -29,7 +29,6 @@ outputMix.append(mixedAudio)  # append first track
 
 for index in enumerate(tracks):  # load tracks
     singleTrackPath = pathlib.Path(str(multiTrackPath) + '/{}'.format(index[1]))  # append single track name
-    audio, fs = librosa.load(singleTrackPath, sr=None, mono=False)  # load track
 
     # begin append and mix track
     tracksObjects.append(Track(singleTrackPath)) # store track object
