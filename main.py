@@ -5,18 +5,8 @@ from pydub import playback, effects
 
 from TrackPkg import Track, getTracks
 from PlaylistPkg import getPlaylistIds
-from spotipyEnvironment import SpotipyEnvironment
 
-# begin init
-# begin set spotipy environment variables
-env = SpotipyEnvironment()
-sp = env.sp
-
-pl_id = env.pl_id
-offset = env.offset
-# end set spotipy environment variables
-
-getPlaylistIds(sp, pl_id, offset)  # playlist ids
+getPlaylistIds()  # playlist ids
 
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
 multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_2')  # append desired multitrack path
