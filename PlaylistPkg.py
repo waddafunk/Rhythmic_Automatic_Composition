@@ -167,10 +167,10 @@ def createPlaylist():
 
 
 if __name__ == "__main__":
-    usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist\nget")
+    usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist\n")
     if usrinput == "get":
         getPlaylistIds(True)
     elif usrinput == "create":
         createPlaylist()
-    else :
+    else:
         print("wrong input")
