@@ -52,4 +52,3 @@ print("Key: %s-%s"%(key_tonal[audio_features["key"]],
 for feature in ["danceability", "energy", "speechiness", "acousticness","liveness","instrumentalness","valence"]:
     print("The %s of the song is %1.f %%"%(feature, 100*audio_features[feature]))
 
-# %%
