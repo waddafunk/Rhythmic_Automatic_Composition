@@ -18,3 +18,7 @@ def getPlaylistIds(fromInput=False):
     pprint(response['items'])
     offset = env.offset + len(response['items'])
     print(offset, "/", response['total'])
+
+
+if __name__ == "__main__":
+    getPlaylistIds(True)
