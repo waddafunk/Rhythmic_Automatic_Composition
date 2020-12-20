@@ -166,7 +166,7 @@ def createPlaylist():
             os.remove("%s.wav" % name_playlist)
 
 
-if __name__ == "__main__":
+def menu():
     usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist\n")
     if usrinput == "get":
         getPlaylistIds(True)
@@ -174,3 +174,7 @@ if __name__ == "__main__":
         createPlaylist()
     else:
         print("wrong input")
+
+
+if __name__ == "__main__":
+    menu()

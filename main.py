@@ -1,12 +1,30 @@
 import pathlib
+import time
 
 import pydub
 from pydub import playback, effects
 
 from TrackPkg import Track, getTracks
-from PlaylistPkg import getPlaylistIds
+from PlaylistPkg import menu as playlistMenu
 
-getPlaylistIds()  # playlist ids
+
+def mainMenu():
+    usrinput = input("\ntype \"playlist\" to access PlaylistPkg menu, \"makenoise\" to play a beat,"
+                     " q to quit\n")
+    if usrinput == "playlist":
+        playlistMenu()
+        return True
+    elif usrinput == "makenoise":
+        playback.play(effects.normalize(outputMix[-1], headroom=3))
+        return True
+    elif usrinput == "q":
+        return False
+    else:
+        print("Wrong Input")
+        rollbackInput = input("Quit? [y/n]")
+        if rollbackInput == "y":
+            return False
+        return True
 
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
 multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_2')  # append desired multitrack path
@@ -30,4 +48,13 @@ for index in enumerate(tracks):  # load tracks
         outputMix.append(mix)  # append new mix
     # end append and mix track
 
-playback.play(effects.normalize(outputMix[-1], headroom=3))  # play last appended track (complete one)
+print("OLLARE")
+time.sleep(1)
+print("THE")
+time.sleep(1)
+print("GANG")
+time.sleep(1)
+
+flag = mainMenu()
+while flag:
+    flag = mainMenu()
