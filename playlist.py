@@ -1,13 +1,13 @@
 # %% Import what we need
+# user ID rpijgz5lyhmcag110hg6bv7s6
 
 import os
 import json
 import time
 import requests
 import numpy as np
-#os.chdir(os.path.abspath(os.path.dirname(__file__)))
-#CREATE_SPOTIFY_PLAYLIST = True
-# Set it to False and I will create a long file instead
+
+from spotipy.oauth2 import SpotifyOAuth
 
 # %% Get the token
 # 1) go to https://developer.spotify.com/console/post-playlists/
@@ -16,7 +16,8 @@ import numpy as np
 # 4) login
 # 5) agree 
 # 6) execute this cell and give the script the token (see above)
-"""if "token" not in locals(): # if you have not inserted the token 
+
+if "token" not in locals(): # if you have not inserted the token
     token=input("Give me the token\n")
 header={"Authorization": "Bearer %s"%token}
 
@@ -141,5 +142,5 @@ if not CREATE_SPOTIFY_PLAYLIST:
     
     # if the convertion was successful, I can remove the wavfile
     if os.path.exists("%s.mp3"%name_playlist):
-        os.remove("%s.wav"%name_playlist)"""
+        os.remove("%s.wav"%name_playlist)
 
