@@ -49,7 +49,9 @@ for song in songs:
     audio_features_song["artist"]=results[0]["artists"][0]["name"]
     audio_features_song["preview_url"]=results[0]["preview_url"]
     audio_features.append(audio_features_song)
-    time.sleep(1) # wait 1 second between the questions
+    time.sleep(1)
+
+print(audio_features_song)# wait 1 second between the questions
 # %% Now let's create some way to organize them!
 
 #shuffled_songs=your_code.sort_songs(audio_features)

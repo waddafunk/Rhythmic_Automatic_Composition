@@ -18,7 +18,7 @@ if "token" not in locals(): # if you have not inserted the token
 header={"Authorization": "Bearer %s"%token}
 # %% Search api: first info
 
-params={"q": "Staying alive bee gees", "type": "track"}
+params={"q": "Ric Flair Drip", "type": "track"}
 search_url="https://api.spotify.com/v1/search"
 req=requests.get(url=search_url, params=params,headers=header)
 assert req.status_code==200, req.content
@@ -32,7 +32,7 @@ print("Preview url: %s"%first_result["preview_url"])
 print("Id on spotify: %s"%first_result["id"])
 
 # %% Download a 30-second preview!
-urllib.request.urlretrieve(first_result["preview_url"], 'first_result.mp3')
+#urllib.request.urlretrieve(first_result["preview_url"], 'first_result.mp3')
 
 # %% Audio feature APIs
 
