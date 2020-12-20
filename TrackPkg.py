@@ -7,24 +7,24 @@ from pydub import playback
 
 class Track:
     def __init__(self, path):
-        self.path = path  # path to wav file
-        self.signal, self.rate = librosa.load(path, sr=None, mono=False)  # librosa array (for analisys only)
-        self.pydubTrack = pydub.AudioSegment.from_file(path, format='wav')  # track to play back
+        self._path = path  # path to wav file
+        self._signal, self._rate = librosa.load(path, sr=None, mono=False)  # librosa array (for analisys only)
+        self._pydubTrack = pydub.AudioSegment.from_file(path, format='wav')  # track to play back
 
     def getPydubTrack(self):
-        return self.pydubTrack
+        return self._pydubTrack
 
     def getSignal(self):
-        return self.signal
+        return self._signal
 
     def getSampleRate(self):
-        return self.rate
+        return self._rate
 
     def getPath(self):
-        return self.path
+        return self._path
 
     def play(self):  # play track
-        playback._play_with_simpleaudio(self.pydubTrack)
+        playback.play(self._pydubTrack)
 
 
 def getTracks(path):  # returns list of all wav files in "path" directory
