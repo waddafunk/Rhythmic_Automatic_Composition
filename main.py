@@ -6,16 +6,20 @@ from pydub import playback, effects
 
 from TrackPkg import Track, getTracks
 from PlaylistPkg import menu as playlistMenu
+from FeaturesPkg import menu as featureMenu
 
 
 def mainMenu():
     usrinput = input("\ntype \"playlist\" to access PlaylistPkg menu, \"makenoise\" to play a beat,"
-                     " q to quit\n")
+                     " \"features\" to access FeaturePkg menu, q to quit\n")
     if usrinput == "playlist":
         playlistMenu()
         return True
     elif usrinput == "makenoise":
         playback.play(effects.normalize(outputMix[-1], headroom=3))
+        return True
+    elif usrinput == "features":
+        featureMenu()
         return True
     elif usrinput == "q":
         return False
