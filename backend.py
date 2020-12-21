@@ -13,7 +13,7 @@ Prerequisites
     export FLASK_APP=/path/to/spotipy/examples/app.py
 
     // on Windows, use `SET` instead of `export`
-Run backend.py
+Run app.py
     python3 -m flask run --port=8080
     NOTE: If receiving "port already in use" error, try other ports: 5000, 8090, 8888, etc...
         (will need to be updated in your Spotify app and SPOTIPY_REDIRECT_URI variable)
@@ -31,8 +31,7 @@ os.environ['SPOTIPY_CLIENT_SECRET'] = 'b60c4489024d403c911865b67d264d88'
 os.environ['SPOTIPY_REDIRECT_URI'] = 'http://127.0.0.1:8080'
 os.environ['FLASK_ENV'] = 'development'
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
-appPath = pathlib.Path(projectPath, '/backend.py')
-os.environ['FLASK_APP'] = appPath.__str__()
+os.environ['FLASK_APP'] = 'backend.py'
 
 
 app = Flask(__name__)
