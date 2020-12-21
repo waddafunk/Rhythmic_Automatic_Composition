@@ -4,10 +4,8 @@
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
 import time
-import sys
+import numpy
 from SpotipyEnvironmentPkg import SpotipyEnvironment
-
-from PlaylistPkg import getPlaylistIds
 
 
 def getArtistFeatures(fromInput=False):
@@ -36,6 +34,53 @@ def getArtistFeatures(fromInput=False):
         print(json.dumps(analysis, indent=4))
         print()
     print("features retrieved in %.2f seconds" % (delta,))
+
+
+class SpotifyFeatures:
+    def __init__(self, energy, loudness, acousticness, valence, tempo, danceability, time_signature):
+        self._energy = energy
+        self._loudness = loudness
+        self._acousticness = acousticness
+        self._valence = valence
+        self._tempo = tempo
+        self._danceability = danceability
+        self._time_signature = time_signature
+
+    def getEnergy(self):
+        return self._energy
+
+    def getLoudness(self):
+        return self._loudness
+
+    def getAcousticness(self):
+        return self._acousticness
+
+    def getValence(self):
+        return self._valence
+
+    def getTempo(self):
+        return self._tempo
+
+    def getTimeSignature(self):
+        return self._time_signature
+
+    def getNumpyArray(self):
+        return numpy.array([self._energy,
+                            self._loudness,
+                            self._acousticness,
+                            self._valence,
+                            self._tempo,
+                            self._time_signature])
+
+
+def getMidpoint(featuresArray):
+    temp = []
+    numpyMatrix = numpy.zeros((0, 6))
+    for index in enumerate(featuresArray):
+        npArray = featuresArray[index[0]].getNumpyArray()
+        temp.append(npArray)
+        numpyMatrix = numpy.vstack((numpyMatrix, temp[-1]))
+    return numpy.mean(numpyMatrix, axis=0)
 
 
 def menu():

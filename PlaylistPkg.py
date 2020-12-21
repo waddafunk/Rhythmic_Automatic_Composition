@@ -3,9 +3,11 @@ import json
 import time
 import requests
 import numpy
+import re
 
 from pprint import pprint
 from SpotipyEnvironmentPkg import SpotipyEnvironment
+from FeaturesPkg import SpotifyFeatures, getMidpoint
 
 env = SpotipyEnvironment()
 
@@ -166,12 +168,88 @@ def createPlaylist():
             os.remove("%s.wav" % name_playlist)
 
 
+def getPlaylistMidpoint(playlistId):
+    sp = SpotipyEnvironment().sp
+
+    if not playlistId:
+        pl_id = 'spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'
+    else:
+        pl_id = playlistId
+    offset = 0
+    songs = []
+    features = []
+    while True:
+        response = sp.playlist_items(pl_id,
+                                     offset=offset,
+                                     fields='items.track.id,total',
+                                     additional_types=['track'])
+
+        if len(response['items']) == 0:
+            break
+
+        offset = offset + len(response['items'])
+
+    # print(str(songs))
+    # print(str(songs).split(','))
+
+    stringa = str(sp.playlist_items(pl_id, fields='items.track.id'))
+    stri = stringa.split(", ")
+
+    for i in range(len(stri)):
+        text = (stri)[i]
+
+        m = re.search('id\': \'(.+?)\'}}', text)
+        if m:
+            found = m.group(1)
+        audio_features = str(sp.audio_features(found))
+        n = re.search('energy\': (.+?), ', audio_features)
+        if n:
+            energy = n.group(1)
+            energy = float(energy)
+
+        n = re.search('loudness\': (.+?), ', audio_features)
+        if n:
+            loudness = n.group(1)
+        loudness = float(loudness)
+
+        n = re.search('acousticness\': (.+?), ', audio_features)
+        if n:
+            acousticness = n.group(1)
+        acousticness = float(acousticness)
+
+        n = re.search('valence\': (.+?), ', audio_features)
+        if n:
+            valence = n.group(1)
+        valence = float(valence)
+
+        n = re.search('tempo\': (.+?), ', audio_features)
+        if n:
+            tempo = n.group(1)
+        tempo = float(tempo)
+
+        n = re.search('danceability\': (.+?), ', audio_features)
+        if n:
+            danceability = n.group(1)
+        danceability = float(danceability)
+
+        n = re.search('time_signature\': (.+?)}]', audio_features)
+        if n:
+            time_signature = n.group(1)
+        time_signature = float(time_signature)
+        features.append(SpotifyFeatures(energy, loudness, acousticness, valence, tempo, danceability, time_signature))
+
+    return getMidpoint(features)
+
+
 def menu():
-    usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist\n")
+    usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist,"
+                     "\"get_midpoint\" to get playlist midpoint \n")
     if usrinput == "get":
         getPlaylistIds(True)
     elif usrinput == "create":
         createPlaylist()
+    elif usrinput == "get_midpoint":
+        print(getPlaylistMidpoint(False))
     else:
         print("wrong input")
 
