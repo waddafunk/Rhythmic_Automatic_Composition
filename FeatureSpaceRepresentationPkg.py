@@ -5,7 +5,7 @@ class FeatureSpaceRepresentation:
     def __init__(self):
         self._classes = []
 
-        class0 = SpotifyFeatures(0.1, -9, 0.2, 0.3, 45, 0.6, 4)
+        class0 = SpotifyFeatures(0.5, -9, 0.2, 0.3, 95, 0.6, 4)
         class1 = SpotifyFeatures(0.47, -8, 0.3, 0.4, 89, 0.4, 4)
         class2 = SpotifyFeatures(0.6, -7, 0.1, 0.2, 140, 0.1, 4)
         class3 = SpotifyFeatures(0.55, -7.5, 0.15, 0.15, 140, 0.2, 4)

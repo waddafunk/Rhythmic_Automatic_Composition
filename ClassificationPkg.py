@@ -1,4 +1,3 @@
-from sklearn import preprocessing
 from FeatureSpaceRepresentationPkg import FeatureSpaceRepresentation
 from PlaylistPkg import getPlaylistMidpoint
 from sklearn.neighbors import KNeighborsClassifier
@@ -7,7 +6,7 @@ import numpy
 
 def getClassification(playlistId='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
     midpoint = getPlaylistMidpoint(playlistId)
-    model = KNeighborsClassifier(n_neighbors=2)
+    model = KNeighborsClassifier(n_neighbors=1)
     representation = FeatureSpaceRepresentation()
     classes = representation.getClasses()
     numpyMatrix = numpy.zeros((0, 7))
