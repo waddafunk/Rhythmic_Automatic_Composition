@@ -20,7 +20,7 @@ Run app.py
 """
 
 import os
-from flask import Flask, session, request, redirect
+from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 import uuid
@@ -48,9 +48,16 @@ if not os.path.exists(caches_folder):
 def session_cache_path():
     return caches_folder + session.get('uuid')
 
-
+#the main page is the login page
 @app.route('/')
 def index():
+    return render_template("login.html")
+
+
+
+#server method to actually do the login with spotify
+@app.route('/login')
+def login():
     if not session.get('uuid'):
         # Step 1. Visitor is unknown, give random ID
         session['uuid'] = str(uuid.uuid4())
@@ -67,7 +74,8 @@ def index():
     if not auth_manager.get_cached_token():
         # Step 2. Display sign in link when no token
         auth_url = auth_manager.get_authorize_url()
-        return f'<h2><a href="{auth_url}">Sign in</a></h2>'
+        return redirect(auth_url)
+        #return f'<h2><a href="{auth_url}">Sign in</a></h2>'
 
     # Step 4. Signed in, display data
     #spotify = spotipy.Spotify(auth_manager=auth_manager)
@@ -107,8 +115,12 @@ def currently_playing():
 
 @app.route('/bella/')
 def bella():
-    return "bella"
+    return render_template("index.html")
 
+
+@app.route('/playlist')
+def playlist():
+    return "weeeeeee"
 
 @app.route('/current_user')
 def current_user():
