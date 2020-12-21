@@ -61,6 +61,9 @@ class SpotifyFeatures:
     def getTempo(self):
         return self._tempo
 
+    def getDanceability(self):
+        return self._danceability
+
     def getTimeSignature(self):
         return self._time_signature
 
@@ -70,17 +73,22 @@ class SpotifyFeatures:
                             self._acousticness,
                             self._valence,
                             self._tempo,
+                            self._danceability,
                             self._time_signature])
 
 
 def getMidpoint(featuresArray):
+    return numpy.mean(getMatrix(featuresArray), axis=0)
+
+
+def getMatrix(featuresArray):
     temp = []
-    numpyMatrix = numpy.zeros((0, 6))
+    numpyMatrix = numpy.zeros((0, 7))
     for index in enumerate(featuresArray):
         npArray = featuresArray[index[0]].getNumpyArray()
         temp.append(npArray)
         numpyMatrix = numpy.vstack((numpyMatrix, temp[-1]))
-    return numpy.mean(numpyMatrix, axis=0)
+    return numpyMatrix
 
 
 def menu():

@@ -8,6 +8,7 @@ import re
 from pprint import pprint
 from SpotipyEnvironmentPkg import SpotipyEnvironment
 from FeaturesPkg import SpotifyFeatures, getMidpoint
+from FeatureSpaceRepresentationPkg import FeatureSpaceRepresentation
 
 env = SpotipyEnvironment()
 
@@ -168,13 +169,9 @@ def createPlaylist():
             os.remove("%s.wav" % name_playlist)
 
 
-def getPlaylistMidpoint(playlistId):
+def getPlaylistMidpoint(playlistId='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
     sp = SpotipyEnvironment().sp
-
-    if not playlistId:
-        pl_id = 'spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'
-    else:
-        pl_id = playlistId
+    pl_id = playlistId
     offset = 0
     songs = []
     features = []
@@ -205,7 +202,7 @@ def getPlaylistMidpoint(playlistId):
         n = re.search('energy\': (.+?), ', audio_features)
         if n:
             energy = n.group(1)
-            energy = float(energy)
+        energy = float(energy)
 
         n = re.search('loudness\': (.+?), ', audio_features)
         if n:
@@ -245,11 +242,11 @@ def menu():
     usrinput = input("type \"get\" to get playlist ids, \"create\" to create a playlist,"
                      "\"get_midpoint\" to get playlist midpoint \n")
     if usrinput == "get":
-        getPlaylistIds(True)
+        getPlaylistIds()
     elif usrinput == "create":
         createPlaylist()
     elif usrinput == "get_midpoint":
-        print(getPlaylistMidpoint(False))
+        print(getPlaylistMidpoint())
     else:
         print("wrong input")
 
