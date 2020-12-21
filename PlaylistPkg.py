@@ -5,7 +5,7 @@ import requests
 import numpy
 
 from pprint import pprint
-from spotipyEnvironment import SpotipyEnvironment
+from SpotipyEnvironmentPkg import SpotipyEnvironment
 
 env = SpotipyEnvironment()
 

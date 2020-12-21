@@ -21,11 +21,13 @@ def mainMenu():
         return False
     else:
         print("Wrong Input")
-        rollbackInput = input("Quit? [y/n]")
-        if rollbackInput == "y":
+        rollbackInput = input("type \"q\" to quit, anything else to return to main menu\n")
+        if rollbackInput == "q":
             return False
         return True
 
+
+# begin init
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
 multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_2')  # append desired multitrack path
 tracks = getTracks(multiTrackPath)
@@ -35,6 +37,7 @@ firstTrackPath = pathlib.Path(str(multiTrackPath) + '/{}'.format(tracks[0]))
 mixedAudio = pydub.AudioSegment.from_file(firstTrackPath, format='wav')  # load first track
 outputMix.append(mixedAudio)  # append first track
 # end init
+
 for index in enumerate(tracks):  # load tracks
 
     singleTrackPath = pathlib.Path(str(multiTrackPath) + '/{}'.format(index[1]))  # append single track name
