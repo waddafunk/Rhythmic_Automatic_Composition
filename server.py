@@ -28,10 +28,10 @@ import pathlib
 
 os.environ['SPOTIPY_CLIENT_ID'] = '7ce43cbf9883427e84fa7581dbac0f83'
 os.environ['SPOTIPY_CLIENT_SECRET'] = 'b60c4489024d403c911865b67d264d88'
-os.environ['SPOTIPY_REDIRECT_URI'] = 'http://127.0.0.1:8080'
+os.environ['SPOTIPY_REDIRECT_URI'] = 'https://OLLAREGANG.pythonanywhere.com/bella/'
 os.environ['FLASK_ENV'] = 'development'
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
-os.environ['FLASK_APP'] = 'backend.py'
+os.environ['FLASK_APP'] = '/home/OLLAREGANG/mysite/server.py'
 
 
 app = Flask(__name__)
@@ -70,8 +70,8 @@ def index():
         return f'<h2><a href="{auth_url}">Sign in</a></h2>'
 
     # Step 4. Signed in, display data
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-    return redirect('/playlists')
+    #spotify = spotipy.Spotify(auth_manager=auth_manager)
+    #return redirect('/bella')
 
 
 def sign_out():
@@ -104,6 +104,10 @@ def currently_playing():
     if not track is None:
         return track
     return "No track currently playing."
+
+@app.route('/bella/')
+def bella():
+    return "bella"
 
 
 @app.route('/current_user')
