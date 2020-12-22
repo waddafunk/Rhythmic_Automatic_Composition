@@ -32,7 +32,7 @@ def getArtistFeatures(fromInput=False):  # shows acoustic features for tracks fo
 
 
 class SpotifyFeatures:
-    def __init__(self, energy, loudness, acousticness, valence, tempo, danceability, time_signature):
+    def __init__(self, energy=0, loudness=0, acousticness=0, valence=0, tempo=0, danceability=0, time_signature=0):
         self._energy = energy
         self._loudness = loudness
         self._acousticness = acousticness

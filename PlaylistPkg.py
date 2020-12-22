@@ -196,41 +196,41 @@ def getPlaylistMidpoint(playlistId='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
         m = re.search('id\': \'(.+?)\'}}', text)
         if m:
             found = m.group(1)
-        audio_features = str(sp.audio_features(found))
+            audio_features = str(sp.audio_features(found))
         n = re.search('energy\': (.+?), ', audio_features)
         if n:
             energy = n.group(1)
-        energy = float(energy)
+            energy = float(energy)
 
         n = re.search('loudness\': (.+?), ', audio_features)
         if n:
             loudness = n.group(1)
-        loudness = float(loudness)
+            loudness = float(loudness)
 
         n = re.search('acousticness\': (.+?), ', audio_features)
         if n:
             acousticness = n.group(1)
-        acousticness = float(acousticness)
+            acousticness = float(acousticness)
 
         n = re.search('valence\': (.+?), ', audio_features)
         if n:
             valence = n.group(1)
-        valence = float(valence)
+            valence = float(valence)
 
         n = re.search('tempo\': (.+?), ', audio_features)
         if n:
             tempo = n.group(1)
-        tempo = float(tempo)
+            tempo = float(tempo)
 
         n = re.search('danceability\': (.+?), ', audio_features)
         if n:
             danceability = n.group(1)
-        danceability = float(danceability)
+            danceability = float(danceability)
 
         n = re.search('time_signature\': (.+?)}]', audio_features)
         if n:
             time_signature = n.group(1)
-        time_signature = float(time_signature)
+            time_signature = float(time_signature)
         features.append(SpotifyFeatures(energy, loudness, acousticness, valence, tempo, danceability, time_signature))
 
     return getMidpoint(features)
