@@ -1,15 +1,10 @@
-# shows acoustic features for tracks for the given artist
-
-# from __future__ import print_function    # (at top of module)
-from spotipy.oauth2 import SpotifyClientCredentials
 import json
 import time
 import numpy
 from SpotipyEnvironmentPkg import SpotipyEnvironment
 
 
-def getArtistFeatures(fromInput=False):
-    client_credentials_manager = SpotifyClientCredentials()
+def getArtistFeatures(fromInput=False):  # shows acoustic features for tracks for the given artist
     sp = SpotipyEnvironment().sp
     sp.trace = False
 

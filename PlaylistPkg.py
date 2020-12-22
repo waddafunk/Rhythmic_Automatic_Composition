@@ -8,12 +8,10 @@ import re
 from pprint import pprint
 from SpotipyEnvironmentPkg import SpotipyEnvironment
 from FeaturesPkg import SpotifyFeatures, getMidpoint
-from FeatureSpaceRepresentationPkg import FeatureSpaceRepresentation
-
-env = SpotipyEnvironment()
 
 
 def getPlaylistIds(fromInput=False):
+    env = SpotipyEnvironment()
     if fromInput:
         input_id = input("Give me playlist ID\n")
     else:
