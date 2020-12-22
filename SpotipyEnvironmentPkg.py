@@ -1,6 +1,5 @@
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
-from flask import session
 import os
 
 

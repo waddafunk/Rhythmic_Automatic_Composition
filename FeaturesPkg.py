@@ -1,15 +1,10 @@
-# shows acoustic features for tracks for the given artist
-
-# from __future__ import print_function    # (at top of module)
-from spotipy.oauth2 import SpotifyClientCredentials
 import json
 import time
 import numpy
 from SpotipyEnvironmentPkg import SpotipyEnvironment
 
 
-def getArtistFeatures(fromInput=False):
-    client_credentials_manager = SpotifyClientCredentials()
+def getArtistFeatures(fromInput=False):  # shows acoustic features for tracks for the given artist
     sp = SpotipyEnvironment().sp
     sp.trace = False
 
@@ -61,6 +56,9 @@ class SpotifyFeatures:
     def getTempo(self):
         return self._tempo
 
+    def getDanceability(self):
+        return self._danceability
+
     def getTimeSignature(self):
         return self._time_signature
 
@@ -70,17 +68,22 @@ class SpotifyFeatures:
                             self._acousticness,
                             self._valence,
                             self._tempo,
+                            self._danceability,
                             self._time_signature])
 
 
 def getMidpoint(featuresArray):
+    return numpy.mean(getMatrix(featuresArray), axis=0)
+
+
+def getMatrix(featuresArray):
     temp = []
-    numpyMatrix = numpy.zeros((0, 6))
+    numpyMatrix = numpy.zeros((0, 7))
     for index in enumerate(featuresArray):
         npArray = featuresArray[index[0]].getNumpyArray()
         temp.append(npArray)
         numpyMatrix = numpy.vstack((numpyMatrix, temp[-1]))
-    return numpy.mean(numpyMatrix, axis=0)
+    return numpyMatrix
 
 
 def menu():

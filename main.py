@@ -7,11 +7,13 @@ from pydub import playback, effects
 from TrackPkg import Track, getTracks
 from PlaylistPkg import menu as playlistMenu
 from FeaturesPkg import menu as featureMenu
+from ClassificationPkg import getClassification
 
 
 def mainMenu():
     usrinput = input("\ntype \"playlist\" to access PlaylistPkg menu, \"makenoise\" to play a beat,"
-                     " \"features\" to access FeaturePkg menu, q to quit\n")
+                     " \"features\" to access FeaturePkg menu,"
+                     "\"get_prediction\" to get playlist prediction, q to quit\n")
     if usrinput == "playlist":
         playlistMenu()
         return True
@@ -20,6 +22,9 @@ def mainMenu():
         return True
     elif usrinput == "features":
         featureMenu()
+        return True
+    elif usrinput == "get_prediction":
+        getClassification()
         return True
     elif usrinput == "q":
         return False
@@ -33,7 +38,7 @@ def mainMenu():
 
 # begin init
 projectPath = pathlib.Path(__file__).parent.absolute()  # get path of the project
-multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_2')  # append desired multitrack path
+multiTrackPath = pathlib.Path(str(projectPath) + '/multitrack/lofi_1')  # append desired multitrack path
 tracks = getTracks(multiTrackPath)
 outputMix = []
 tracksObjects = []
