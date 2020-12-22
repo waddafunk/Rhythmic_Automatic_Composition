@@ -3,9 +3,18 @@ from PlaylistPkg import getPlaylistMidpoint
 from sklearn.neighbors import KNeighborsClassifier
 import numpy
 
+'''
+getClassification(playlistURI='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL')
+    Performs classification of the playlist
+    Args:
+        playlistURI uri of the playlist to classify
+        
+    return: 1x1 numpy.array containing index of FeatureSpaceRepresentation class selected  
+'''
 
-def getClassification(playlistId='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
-    midpoint = getPlaylistMidpoint(playlistId)
+
+def getClassification(playlistURI='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
+    midpoint = getPlaylistMidpoint(playlistURI)
     model = KNeighborsClassifier(n_neighbors=1)
     representation = FeatureSpaceRepresentation()
     classes = representation.getClasses()
@@ -19,6 +28,7 @@ def getClassification(playlistId='spotify:playlist:0XgEPjlWTX4g4HjBNhtZIL'):
     labels = model.predict(midpoint.reshape(1, -1))
     print(labels)
     print(midpoint)
+    return labels
 
 
 if __name__ == "__main__":
